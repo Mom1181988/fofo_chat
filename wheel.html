@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💎</text></svg>">
+    <title>فوفو شات - العجلة السحرية</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #9C27B0, #673AB7);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px 30px;
+            border-radius: 25px;
+            margin: 20px;
+            font-size: 24px;
+        }
+
+        .title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 28px;
+            margin: 20px;
+        }
+
+        .prize {
+            font-size: 24px;
+            color: #FFD700;
+            margin: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .wheel-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 20px;
+        }
+
+        .wheel {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: white;
+            position: relative;
+            overflow: hidden;
+            transition: transform 3s cubic-bezier(0.17, 0.67, 0.12, 0.99);
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+        }
+
+        .wheel-section {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            transform-origin: 100% 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .pointer {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background: #FFD700;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            z-index: 2;
+        }
+
+        .spin-button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 25px;
+            font-size: 20px;
+            margin-top: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .spin-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .message {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            z-index: 1000;
+            color: #333;
+        }
+
+        .message.show {
+            display: block;
+        }
+
+        .message button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 30px;
+            border-radius: 20px;
+            font-size: 18px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">فوفو شات</div>
+    <div class="title">
+        العجلة السحرية
+    </div>
+    <div class="prize">
+        اربح 250,000 ماسة 
+    </div>
+    <div class="wheel-container">
+        <div class="pointer"></div>
+        <div class="wheel" id="wheel"></div>
+    </div>
+    <button class="spin-button" onclick="spinWheel()">تدوير العجلة</button>
+
+    <div class="message" id="message">
+        <div id="message-text"></div>
+        <button onclick="handleMessageButton()" id="message-button">تسجيل الدخول</button>
+    </div>
+
+    <script>
+        // إنشاء أقسام العجلة
+        const wheel = document.querySelector('.wheel');
+        const colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEEAD', '#D4A5A5', '#9A8194', '#392F5A'];
+        
+        for (let i = 0; i < 8; i++) {
+            const section = document.createElement('div');
+            section.className = 'wheel-section';
+            section.style.transform = `rotate(${i * 45}deg)`;
+            section.style.background = colors[i];
+            wheel.appendChild(section);
+        }
+
+        let canSpin = true;
+
+        function spinWheel() {
+            if (!canSpin) return;
+            canSpin = false;
+
+            const spins = 5;
+            const degrees = spins * 360 + Math.floor(Math.random() * 360);
+            wheel.style.transform = `rotate(${degrees}deg)`;
+            
+            setTimeout(() => {
+                showMessage();
+            }, 3000);
+        }
+
+        function showMessage() {
+            const messageText = document.getElementById('message-text');
+            messageText.textContent = 'مبروك! لقد ربحت 250,000 ماسة! ';
+            const message = document.getElementById('message');
+            message.classList.add('show');
+        }
+
+        function handleMessageButton() {
+            window.location.href = 'login.html';
+        }
+
+        wheel.addEventListener('transitionend', () => {
+            canSpin = true;
+        });
+    </script>
+</body>
+</html>

